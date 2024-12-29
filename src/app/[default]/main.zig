@@ -68,12 +68,8 @@ pub fn awake() !void {
                     e.Vec2(8, 4),
                     (struct {
                         pub fn callback() !void {
-                            try e.nextFrame((struct {
-                                pub fn callback() !void {
-                                    e.input.ui_mode = false;
-                                    try e.scenes.load("game");
-                                }
-                            }).callback);
+                            e.input.ui_mode = false;
+                            try e.scenes.load("game");
                         }
                     }).callback,
                 ),

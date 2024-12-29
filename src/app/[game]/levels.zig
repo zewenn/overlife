@@ -1209,5 +1209,6 @@ pub const leveldat = struct {
         }
 
         try loadFromMatrix(matrix);
+        editor_suit.disable();
     }
 };

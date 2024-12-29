@@ -59,6 +59,24 @@ pub const Entity = struct {
             },
         };
     }
+
+    pub fn canMove(self: *Self) bool {
+        const es = self.entity_stats orelse return false;
+        if (!es.can_move or
+            es.is_rooted or
+            es.is_stunned or
+            es.is_asleep) return false;
+
+        return true;
+    }
+
+    pub fn getCCLevel(self: *Self) CCLevel {
+        const es = self.entity_stats orelse return .none;
+        if (es.is_asleep or es.is_stunned) return .hard;
+        if (es.is_rooted) return .semi_hard;
+        if (es.is_slowed) return .soft;
+        return .none;
+    }
 };
 
 pub const entities = entities_module.make(Entity);
@@ -158,6 +176,13 @@ pub const EffectsShown = struct {
     healing: bool = false,
     invulnerable: bool = false,
     energised: bool = false,
+};
+
+pub const CCLevel = enum {
+    none,
+    soft,
+    semi_hard,
+    hard,
 };
 
 pub const EnemyArchetypes = enum {

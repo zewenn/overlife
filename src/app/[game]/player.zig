@@ -46,9 +46,11 @@ pub var Player = e.entities.Entity{
         .can_move = true,
         .damage = 10,
     },
+
     .dash_modifiers = .{
-        .dash_time = 0.35,
-        .movement_speed_multiplier = 3.5,
+        .dash_time = 0.25,
+        .recharge_time = 0.65,
+        .movement_speed_multiplier = 4.5,
     },
 };
 
@@ -140,31 +142,33 @@ pub fn awake() !void {
                 // 5,
             );
 
+            // zig fmt: off
             _ = walk_right_anim
                 .chain(
-                0,
-                .{
-                    .rotation = 0,
-                    .sprite = WALK_RIGHT_0,
-                },
-            )
+                    0,
+                    .{
+                        .rotation = 0,
+                        .sprite = WALK_RIGHT_0,
+                    },
+                )
                 .chain(
-                50,
-                .{
-                    .rotation = 5,
-                    .sprite = WALK_RIGHT_1,
-                },
-            )
+                    50,
+                    .{
+                        .rotation = 5,
+                        .sprite = WALK_RIGHT_1,
+                    },
+                )
                 .chain(
-                100,
-                .{
-                    .rotation = 0,
-                    .sprite = WALK_RIGHT_0,
-                },
-            );
+                    100,
+                    .{
+                        .rotation = 0,
+                        .sprite = WALK_RIGHT_0,
+                    },
+                );
 
             try player_animator.chain(walk_right_anim);
         }
+        // zig fmt: on
     }
 
     try e.entities.append(&Hand0);
@@ -450,16 +454,12 @@ pub fn update() !void {
 
         const norm_vector = move_vector.normalize();
 
-        if (Player.entity_stats.?.can_move and
-            !Player.entity_stats.?.is_rooted and
-            !Player.entity_stats.?.is_stunned and
-            !Player.entity_stats.?.is_asleep)
-        {
+        if (Player.canMove()) {
             Player.transform.position.x += norm_vector.x * Player.entity_stats.?.movement_speed * @as(f32, @floatCast(e.time.deltaTime));
             Player.transform.position.y += norm_vector.y * Player.entity_stats.?.movement_speed * @as(f32, @floatCast(e.time.deltaTime));
         }
 
-        if (Player.entity_stats.?.is_stunned or Player.entity_stats.?.is_asleep) break :Input;
+        if (Player.getCCLevel() == .hard) break :Input;
 
         if (e.isKeyPressed(.key_space)) {
             try dashing.applyDash(
