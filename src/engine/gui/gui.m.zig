@@ -77,7 +77,7 @@ pub fn update() void {
                     button.is_hovered = true;
                     hovered_button = button;
 
-                    if (rl.isMouseButtonPressed(.mouse_button_left)) {
+                    if (rl.isMouseButtonPressed(.left)) {
                         btn.?.callback_fn() catch {};
                     }
                 }
@@ -93,16 +93,16 @@ pub fn update() void {
 
             var towards: ?zlib.arrays.Direction = null;
 
-            if (rl.isKeyPressed(.key_left) and keyboard_cursor_position.x > 0)
+            if (rl.isKeyPressed(.left) and keyboard_cursor_position.x > 0)
                 towards = .left;
 
-            if (rl.isKeyPressed(.key_right) and keyboard_cursor_position.x < 15)
+            if (rl.isKeyPressed(.right) and keyboard_cursor_position.x < 15)
                 towards = .right;
 
-            if (rl.isKeyPressed(.key_up) and keyboard_cursor_position.y > 0)
+            if (rl.isKeyPressed(.up) and keyboard_cursor_position.y > 0)
                 towards = .up;
 
-            if (rl.isKeyPressed(.key_down) and keyboard_cursor_position.y < 8)
+            if (rl.isKeyPressed(.down) and keyboard_cursor_position.y < 8)
                 towards = .down;
 
             if (towards) |direction| {
@@ -129,7 +129,7 @@ pub fn update() void {
                 btn.element_ptr.?.is_hovered = true;
                 hovered_button = btn.element_ptr.?;
 
-                if (rl.isKeyPressed(.key_space) or rl.isKeyPressed(.key_enter)) {
+                if (rl.isKeyPressed(.space) or rl.isKeyPressed(.enter)) {
                     btn.callback_fn() catch {};
                 }
             }

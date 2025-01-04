@@ -17,14 +17,11 @@ pub fn update() void {
         return;
     }
 
-    if (rl.isKeyDown(.key_left) or
-        rl.isKeyDown(.key_right) or
-        rl.isKeyDown(.key_up) or
-        rl.isKeyDown(.key_down))
+    if (rl.isKeyDown(.left) or
+        rl.isKeyDown(.right) or
+        rl.isKeyDown(.up) or
+        rl.isKeyDown(.down))
     {
         input_mode = .Keyboard;
     }
 }
-
-
-

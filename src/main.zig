@@ -11,7 +11,7 @@ pub fn main() !void {
 
     const allocator = gpa.allocator();
 
-    e.setTraceLogLevel(.log_error);
+    // e.setTraceLogLevel(.err);
 
     e.window.init(
         "OverLife - v0.0.0-a1",
@@ -32,14 +32,14 @@ pub fn main() !void {
     }
 
     e.setTargetFPS(256);
-    e.setExitKey(.key_kp_7);
+    e.setExitKey(.kp_7);
 
     while (!e.windowShouldClose()) {
-        if (e.isKeyPressed(.key_f11)) {
+        if (e.isKeyPressed(.f11)) {
             e.window.toggleBorderless();
         }
         if (e.builtin.mode == .Debug) {
-            if (e.isKeyPressed(.key_f3)) {
+            if (e.isKeyPressed(.f3)) {
                 e.zlib.debug.debugDisplay = !e.zlib.debug.debugDisplay;
             }
         }

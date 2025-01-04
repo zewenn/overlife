@@ -86,7 +86,7 @@ pub fn init() !void {
 }
 
 pub fn update() !void {
-    if (e.isKeyPressed(.key_space)) {
+    if (e.isKeyPressed(.space)) {
         e.input.ui_mode = false;
         try e.scenes.load("game");
     }

@@ -233,27 +233,27 @@ pub fn init() !void {
 }
 
 pub fn update() !void {
-    if (e.isKeyDown(.key_seven)) e.display.camera.zoom *= 0.99;
-    if (e.isKeyDown(.key_eight)) e.display.camera.zoom *= 1.01;
+    if (e.isKeyDown(.seven)) e.display.camera.zoom *= 0.99;
+    if (e.isKeyDown(.eight)) e.display.camera.zoom *= 1.01;
 
-    if (e.isKeyDown(.key_e)) {
-        if (e.isKeyDown(.key_one)) {
+    if (e.isKeyDown(.e)) {
+        if (e.isKeyDown(.one)) {
             Player.entity_stats.?.health += 0.1;
             Player.entity_stats.?.is_healing = true;
         } else Player.entity_stats.?.is_healing = false;
-        if (e.isKeyDown(.key_two)) {
+        if (e.isKeyDown(.two)) {
             Player.entity_stats.?.health -= 0.1;
         }
     }
 
-    if (e.isKeyDown(.key_r)) {
-        Player.entity_stats.?.is_slowed = e.isKeyDown(.key_one);
+    if (e.isKeyDown(.r)) {
+        Player.entity_stats.?.is_slowed = e.isKeyDown(.one);
 
-        Player.entity_stats.?.is_rooted = e.isKeyDown(.key_two);
+        Player.entity_stats.?.is_rooted = e.isKeyDown(.two);
 
-        Player.entity_stats.?.is_stunned = e.isKeyDown(.key_three);
+        Player.entity_stats.?.is_stunned = e.isKeyDown(.three);
 
-        Player.entity_stats.?.is_asleep = e.isKeyDown(.key_four);
+        Player.entity_stats.?.is_asleep = e.isKeyDown(.four);
     }
 
     Player.entity_stats.?.health = e.zlib.math.clamp(
@@ -317,7 +317,7 @@ pub fn update() !void {
     var move_vector = e.Vec2(0, 0);
     Input: {
         // @test
-        if (e.isKeyPressed(.key_u)) {
+        if (e.isKeyPressed(.u)) {
             std.log.debug("asd", .{});
             // try levels.loadFromMatrix(
             //     ([_][200]u8{
@@ -342,32 +342,32 @@ pub fn update() !void {
             // );
         }
 
-        if (e.isKeyDown(.key_w)) {
+        if (e.isKeyDown(.w)) {
             move_vector.y -= 1;
         }
-        if (e.isKeyDown(.key_s)) {
+        if (e.isKeyDown(.s)) {
             move_vector.y += 1;
         }
-        if (e.isKeyDown(.key_a)) {
+        if (e.isKeyDown(.a)) {
             move_vector.x -= 1;
         }
-        if (e.isKeyDown(.key_d)) {
+        if (e.isKeyDown(.d)) {
             move_vector.x += 1;
         }
-        if (e.isKeyPressed(.key_f)) KeyF: {
-            if (e.isKeyDown(.key_one)) {
+        if (e.isKeyPressed(.f)) KeyF: {
+            if (e.isKeyDown(.one)) {
                 levels.unload();
                 break :KeyF;
             }
 
-            if (e.isKeyDown(.key_two)) {
+            if (e.isKeyDown(.two)) {
                 try levels.startRound();
                 break :KeyF;
             }
 
             try levels.leveldat.load("demo");
             break :KeyF;
-            // if (e.isKeyDown(.key_zero)) {
+            // if (e.isKeyDown(.zero)) {
             //     for (0..10) |_| {
             //         try enemies.spawnArchetype(
             //             .brute,
@@ -376,42 +376,42 @@ pub fn update() !void {
             //         );
             //     }
             // }
-            // if (e.isKeyDown(.key_one)) {
+            // if (e.isKeyDown(.one)) {
             //     try enemies.spawnArchetype(
             //         .minion,
             //         .normal,
             //         e.Vec2(0, 0),
             //     );
             // }
-            // if (e.isKeyDown(.key_two)) {
+            // if (e.isKeyDown(.two)) {
             //     try enemies.spawnArchetype(
             //         .brute,
             //         .normal,
             //         e.Vec2(0, 0),
             //     );
             // }
-            // if (e.isKeyDown(.key_three)) {
+            // if (e.isKeyDown(.three)) {
             //     try enemies.spawnArchetype(
             //         .angler,
             //         .normal,
             //         e.Vec2(0, 0),
             //     );
             // }
-            // if (e.isKeyDown(.key_four)) {
+            // if (e.isKeyDown(.four)) {
             //     try enemies.spawnArchetype(
             //         .tank,
             //         .normal,
             //         e.Vec2(0, 0),
             //     );
             // }
-            // if (e.isKeyDown(.key_five)) {
+            // if (e.isKeyDown(.five)) {
             //     try enemies.spawnArchetype(
             //         .shaman,
             //         .normal,
             //         e.Vec2(0, 0),
             //     );
             // }
-            // if (e.isKeyDown(.key_six)) {
+            // if (e.isKeyDown(.six)) {
             //     try enemies.spawnArchetype(
             //         .knight,
             //         .normal,
@@ -419,7 +419,7 @@ pub fn update() !void {
             //     );
             // }
         }
-        if (e.isKeyPressed(.key_q) and inventory.equippedbar.spells.q != null) {
+        if (e.isKeyPressed(.q) and inventory.equippedbar.spells.q != null) {
             try spells.summon(
                 inventory.equippedbar.spells.q.?.*,
                 &Player,
@@ -427,7 +427,7 @@ pub fn update() !void {
                 Player.entity_stats.?.damage,
             );
         }
-        if (e.isKeyPressed(.key_e) and inventory.equippedbar.spells.e != null) {
+        if (e.isKeyPressed(.e) and inventory.equippedbar.spells.e != null) {
             try spells.summon(
                 inventory.equippedbar.spells.e.?.*,
                 &Player,
@@ -435,7 +435,7 @@ pub fn update() !void {
                 Player.entity_stats.?.damage,
             );
         }
-        if (e.isKeyPressed(.key_r) and inventory.equippedbar.spells.r != null) {
+        if (e.isKeyPressed(.r) and inventory.equippedbar.spells.r != null) {
             try spells.summon(
                 inventory.equippedbar.spells.r.?.*,
                 &Player,
@@ -443,7 +443,7 @@ pub fn update() !void {
                 Player.entity_stats.?.damage,
             );
         }
-        if (e.isKeyPressed(.key_x) and inventory.equippedbar.spells.x != null) {
+        if (e.isKeyPressed(.x) and inventory.equippedbar.spells.x != null) {
             try spells.summon(
                 inventory.equippedbar.spells.x.?.*,
                 &Player,
@@ -461,7 +461,7 @@ pub fn update() !void {
 
         if (Player.getCCLevel() == .hard) break :Input;
 
-        if (e.isKeyPressed(.key_space)) {
+        if (e.isKeyPressed(.space)) {
             try dashing.applyDash(
                 &Player,
                 std.math.radiansToDegrees(
@@ -480,16 +480,16 @@ pub fn update() !void {
             .Keyboard => GetRot: {
                 var rot_vector = e.Vec2(0, 0);
 
-                if (e.isKeyDown(.key_up)) {
+                if (e.isKeyDown(.up)) {
                     rot_vector.y -= 1;
                 }
-                if (e.isKeyDown(.key_down)) {
+                if (e.isKeyDown(.down)) {
                     rot_vector.y += 1;
                 }
-                if (e.isKeyDown(.key_left)) {
+                if (e.isKeyDown(.left)) {
                     rot_vector.x -= 1;
                 }
-                if (e.isKeyDown(.key_right)) {
+                if (e.isKeyDown(.right)) {
                     rot_vector.x += 1;
                 }
 
@@ -502,15 +502,15 @@ pub fn update() !void {
 
         const shoot = (
         //
-            (e.isKeyPressed(.key_up) or
-            e.isKeyPressed(.key_down) or
-            e.isKeyPressed(.key_left) or
-            e.isKeyPressed(.key_right)) and
+            (e.isKeyPressed(.up) or
+            e.isKeyPressed(.down) or
+            e.isKeyPressed(.left) or
+            e.isKeyPressed(.right)) and
             e.input.input_mode == .Keyboard
         //
         ) or (
         //
-            e.isMouseButtonPressed(.mouse_button_left)
+            e.isMouseButtonPressed(.left)
         //
         );
 
@@ -518,8 +518,8 @@ pub fn update() !void {
             mouse_rotation = shoot_angle;
         }
 
-        const shoot_heavy = ((shoot and e.isKeyDown(.key_left_shift)) or
-            e.isMouseButtonPressed(.mouse_button_right));
+        const shoot_heavy = ((shoot and e.isKeyDown(.left_shift)) or
+            e.isMouseButtonPressed(.right));
 
         if (Player.shooting_stats.?.timeout_end >= e.time.gameTime) break :Input;
 

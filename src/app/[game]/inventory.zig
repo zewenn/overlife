@@ -2420,8 +2420,8 @@ pub fn init() !void {
 }
 
 pub fn update() !void {
-    if (e.isKeyPressed(.key_i) or e.isKeyPressed(.key_tab)) toggle();
-    if (e.isKeyPressed(.key_escape) and shown) hide();
+    if (e.isKeyPressed(.i) or e.isKeyPressed(.tab)) toggle();
+    if (e.isKeyPressed(.escape) and shown) hide();
 
     dummy_animator.update();
 
@@ -2433,38 +2433,38 @@ pub fn update() !void {
 
     if (GUI.BM3D.current_layer != 1) return;
 
-    if ((e.isMouseButtonPressed(.mouse_button_left) or
-        e.isKeyPressed(.key_enter) or
-        e.isKeyPressed(.key_backspace) or
-        e.isKeyPressed(.key_space)) and
+    if ((e.isMouseButtonPressed(.left) or
+        e.isKeyPressed(.enter) or
+        e.isKeyPressed(.backspace) or
+        e.isKeyPressed(.space)) and
         delete_mode_last_frame)
     {
         delete_mode = false;
         try updateGUI();
     }
 
-    if (e.isKeyPressed(.key_backspace) and !delete_mode_last_frame) {
+    if (e.isKeyPressed(.backspace) and !delete_mode_last_frame) {
         delete_mode = true;
         try updateGUI();
     }
 
-    if ((e.isKeyPressed(.key_up) or
-        e.isKeyPressed(.key_down) or
-        e.isKeyPressed(.key_left) or
-        e.isKeyPressed(.key_right)) and
+    if ((e.isKeyPressed(.up) or
+        e.isKeyPressed(.down) or
+        e.isKeyPressed(.left) or
+        e.isKeyPressed(.right)) and
         GUI.hovered_button != null)
     {
         try autoSelect();
     }
 
     if (spell_equip_mode and preview.selected_item != null) {
-        if (e.isKeyPressed(.key_q))
+        if (e.isKeyPressed(.q))
             equippedbar.equipSpell(preview.selected_item.?, .q)
-        else if (e.isKeyPressed(.key_e))
+        else if (e.isKeyPressed(.e))
             equippedbar.equipSpell(preview.selected_item.?, .e)
-        else if (e.isKeyPressed(.key_r))
+        else if (e.isKeyPressed(.r))
             equippedbar.equipSpell(preview.selected_item.?, .r)
-        else if (e.isKeyPressed(.key_x))
+        else if (e.isKeyPressed(.x))
             equippedbar.equipSpell(preview.selected_item.?, .x);
 
         if (preview.selected_item.?.equipped) {
@@ -2474,11 +2474,11 @@ pub fn update() !void {
             try updateGUI();
             try preview.repaint();
         }
-    } else if (e.isKeyPressed(.key_e) and preview.is_shown) {
+    } else if (e.isKeyPressed(.e) and preview.is_shown) {
         try preview.equippButtonCallback();
     }
 
-    if (e.isKeyPressed(.key_r) and e.isKeyDown(.key_left_control)) {
+    if (e.isKeyPressed(.r) and e.isKeyDown(.left_control)) {
         loadFromSave();
         sortBag();
         try updateGUI();

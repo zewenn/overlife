@@ -217,7 +217,7 @@ pub fn init() !void {
 }
 
 pub fn update() !void {
-    if (e.isKeyDown(.key_left_alt) and e.isKeyPressed(.key_e)) {
+    if (e.isKeyDown(.left_alt) and e.isKeyPressed(.e)) {
         editor_suit.toggle();
     }
 
@@ -781,12 +781,12 @@ pub const editor_suit = struct {
             item.gui.options.style.left = e.GUI.toUnit(screen_pos.x);
         }
 
-        if (e.isMouseButtonPressed(.mouse_button_left)) {
+        if (e.isMouseButtonPressed(.left)) {
             drag_start_pos = cursor_position;
             dragging = true;
         }
 
-        if (e.isMouseButtonReleased(.mouse_button_left)) {
+        if (e.isMouseButtonReleased(.left)) {
             // if ((last_pos.equals(cursor_position) == 0 or
             //     last_placedown_type != placedown_type)) break :Blk;
 
@@ -826,46 +826,46 @@ pub const editor_suit = struct {
 
         var move_vector = e.Vec2(0, 0);
 
-        if (e.isKeyDown(.key_w)) {
+        if (e.isKeyDown(.w)) {
             move_vector.y -= 1;
         }
-        if (e.isKeyDown(.key_s)) {
+        if (e.isKeyDown(.s)) {
             move_vector.y += 1;
         }
-        if (e.isKeyDown(.key_a)) {
+        if (e.isKeyDown(.a)) {
             move_vector.x -= 1;
         }
-        if (e.isKeyDown(.key_d)) {
+        if (e.isKeyDown(.d)) {
             move_vector.x += 1;
         }
 
-        if (e.isKeyPressed(.key_one) and e.isKeyDown(.key_left_alt))
+        if (e.isKeyPressed(.one) and e.isKeyDown(.left_alt))
             placedown_type = .{}
-        else if (e.isKeyPressed(.key_one))
+        else if (e.isKeyPressed(.one))
             placedown_type = .{ .base = 1 };
-        if (e.isKeyPressed(.key_two)) placedown_type = .{ .base = 2 };
-        if (e.isKeyPressed(.key_three)) placedown_type = .{ .base = 3 };
-        if (e.isKeyPressed(.key_four)) placedown_type = .{ .base = 4 };
-        if (e.isKeyPressed(.key_five)) placedown_type = .{
+        if (e.isKeyPressed(.two)) placedown_type = .{ .base = 2 };
+        if (e.isKeyPressed(.three)) placedown_type = .{ .base = 3 };
+        if (e.isKeyPressed(.four)) placedown_type = .{ .base = 4 };
+        if (e.isKeyPressed(.five)) placedown_type = .{
             .base = 5,
             .arch = 0,
             .sub = 0,
             .info = 0,
         };
-        if (e.isKeyPressed(.key_six)) placedown_type = .{
+        if (e.isKeyPressed(.six)) placedown_type = .{
             .base = 5,
             .arch = 1,
             .sub = 0,
             .info = 1,
         };
 
-        if (e.isKeyDown(.key_left_control) and e.isKeyPressed(.key_q)) {
+        if (e.isKeyDown(.left_control) and e.isKeyPressed(.q)) {
             freeCurrentMatrix();
             current_matrix = try leveldat.toMatrix("test");
             try loadFromMatrix(current_matrix);
         }
 
-        if (e.isKeyDown(.key_left_control) and e.isKeyPressed(.key_s)) {
+        if (e.isKeyDown(.left_control) and e.isKeyPressed(.s)) {
             try leveldat.save(current_matrix, "test");
             move_vector.y = 0;
         }
