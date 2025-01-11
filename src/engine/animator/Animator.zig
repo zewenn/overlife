@@ -12,6 +12,7 @@ const time = @import("../time.m.zig");
 const z = @import("../z/z.m.zig");
 
 const loadf32 = @import("../engine.m.zig").loadf32;
+const minmax = @import("../engine.m.zig").minmax;
 
 const Self = @This();
 
@@ -237,17 +238,20 @@ pub fn update(self: *Self) void {
         const curr = current_kf.?;
         const nxt = next_kf.?;
 
-        // (gameTime - startTime) / (
-        //         anim.length
-        //         * (next_kf_percent + 0.001)
-        //     )
+        // This variable is a percentage between the start and end of the animation.
+        // basically: (anim_progress) / (anim_length)
         var interpolation_factor = ((loadf32(time.gameTime) - anim.start_time) / (anim.transition_time));
-        // var interpolation_factor = (loadf32(time.gameTime) - anim.start_time) / (anim.transition_time);
-        // var interpolation_factor = loadf32(loadf32(anim.current_frame) * anim.transition_time_ms_per_frame) / (anim.transition_time);
-        interpolation_factor = @max(0, @min(interpolation_factor, 1));
 
-        var percent = (anim.timing_fn(0, 1, interpolation_factor) - (anim.timing_fn(0, 1, (loadf32(anim.current_index) / 100)))) / (anim.timing_fn(0, 1, loadf32(anim.next_index) / 100) - (anim.timing_fn(0, 1, (loadf32(anim.current_index) / 100))));
-        percent = @max(0, @min(1, percent));
+        interpolation_factor = minmax(0, interpolation_factor, 1);
+
+        const animation_progress_percent = anim.timing_fn(0, 1, interpolation_factor);
+        const current_index_percent = anim.timing_fn(0, 1, (loadf32(anim.current_index) / 100));
+        const next_index_percent = anim.timing_fn(0, 1, loadf32(anim.next_index) / 100);
+
+        // Normalised percent between two values - this is why interpolateKeyframes uses lerp!
+        const percent =
+            (animation_progress_percent - current_index_percent) /
+            (next_index_percent - current_index_percent);
 
         self.applyKeyframe(
             anim.interpolateKeyframes(

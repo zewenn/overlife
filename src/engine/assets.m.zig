@@ -24,23 +24,22 @@ var lvldat_map: std.StringHashMap([]const u8) = undefined;
 var alloc: Allocator = undefined;
 
 pub inline fn compile(allocator: Allocator) !void {
-    var content_arr: std.ArrayListAligned([]const u8, null) = undefined;
-    content_arr = std.ArrayList([]const u8).init(allocator);
+    alloc = allocator;
+
+    var content_arr = std.ArrayList([]const u8).init(allocator);
     defer content_arr.deinit();
 
     inline for (filenames) |filename| {
         try content_arr.append(@embedFile("../assets/" ++ filename));
     }
 
-    const x2 = content_arr.toOwnedSlice() catch unreachable;
-    defer allocator.free(x2);
-
-    std.mem.copyForwards([]const u8, &files, x2);
+    std.mem.copyForwards([]const u8, &files, content_arr.items);
 }
 
-pub fn init(allocator: Allocator) !void {
+pub fn init() !void {
     std.log.info("ASSETS: Loading...", .{});
-    alloc = allocator;
+    defer std.log.info("ASSETS: Loaded", .{});
+
     image_map = std.StringHashMap(Image).init(alloc);
     wave_map = std.StringHashMap(Wave).init(alloc);
     font_map = std.StringHashMap(Font).init(alloc);
@@ -92,7 +91,6 @@ pub fn init(allocator: Allocator) !void {
             try font_map.put(name, font);
         }
     }
-    std.log.info("ASSETS: Loaded", .{});
 }
 
 pub const get = struct {

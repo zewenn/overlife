@@ -54,6 +54,10 @@ pub fn loadf32(v: anytype) f32 {
     };
 }
 
+pub inline fn minmax(min: anytype, value: @TypeOf(min), max: @TypeOf(value)) @TypeOf(value) {
+    return @max(min, @min(value, max));
+}
+
 pub fn loadusize(v: anytype) usize {
     return switch (@typeInfo(@TypeOf(v))) {
         .Int, .ComptimeInt => @intCast(v),
@@ -141,7 +145,7 @@ pub fn init(allocator: Allocator) !void {
 
     scenes.init(ALLOCATOR);
 
-    try assets.init(ALLOCATOR);
+    try assets.init();
 
     GUI.init(ALLOCATOR);
 
