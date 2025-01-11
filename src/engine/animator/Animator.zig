@@ -242,16 +242,18 @@ pub fn update(self: *Self) void {
         // basically: (anim_progress) / (anim_length)
         var interpolation_factor = ((loadf32(time.gameTime) - anim.start_time) / (anim.transition_time));
 
-        interpolation_factor = minmax(0, interpolation_factor, 1);
+        interpolation_factor = minmax(f32, 0, interpolation_factor, 1);
 
         const animation_progress_percent = anim.timing_fn(0, 1, interpolation_factor);
-        const current_index_percent = anim.timing_fn(0, 1, (loadf32(anim.current_index) / 100));
         const next_index_percent = anim.timing_fn(0, 1, loadf32(anim.next_index) / 100);
 
         // Normalised percent between two values - this is why interpolateKeyframes uses lerp!
-        const percent =
-            (animation_progress_percent - current_index_percent) /
-            (next_index_percent - current_index_percent);
+        const percent = minmax(
+            f32,
+            0,
+            animation_progress_percent / next_index_percent,
+            1,
+        );
 
         self.applyKeyframe(
             anim.interpolateKeyframes(

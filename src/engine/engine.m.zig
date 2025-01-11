@@ -45,7 +45,7 @@ pub const MISSINGNO = "sprites/missingno.png";
 pub const saveloader = @import("./saveloader.zig");
 pub const reshape = zlib.reshape;
 
-pub fn loadf32(v: anytype) f32 {
+pub inline fn loadf32(v: anytype) f32 {
     return switch (@typeInfo(@TypeOf(v))) {
         .Int, .ComptimeInt => @floatFromInt(v),
         .Float, .ComptimeFloat => @floatCast(v),
@@ -54,7 +54,7 @@ pub fn loadf32(v: anytype) f32 {
     };
 }
 
-pub inline fn minmax(min: anytype, value: @TypeOf(min), max: @TypeOf(value)) @TypeOf(value) {
+pub inline fn minmax(T: type, min: T, value: T, max: T) T {
     return @max(min, @min(value, max));
 }
 
