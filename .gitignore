@@ -1,6 +1,10 @@
+.VSCodeCounter/
+.vscode/
+
 .zig-cache/
 /.zig-cache/
-**/.DS_Store
 zig-out/
-.VSCodeCounter/
-src/.temp/
+
+**/.DS_Store
+
+**/.temp/
