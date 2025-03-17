@@ -1,14 +1,13 @@
 .{
-    .name = "HadeSpear",
+    .name = .overlife,
     .version = "0.0.1",
+
+    .fingerprint = 0xf344cbb8fc6404,
+
     .dependencies = .{
-        .@"raylib-zig" = .{
-            .url = "git+https://github.com/Not-Nik/raylib-zig.git#57041e707c06360808c9026f41c968c914e5415c",
-            .hash = "1220fef1b089185bea1d40b5997ae82ed6e84732b815edfc1e39ce2173aaca3310b2",
-        },
-        .uuid = .{
-            .url = "https://github.com/r4gus/uuid-zig/archive/refs/tags/0.2.1.tar.gz",
-            .hash = "1220b4deeb4ec1ec3493ea934905356384561b725dba69d1fbf6a25cb398716dd05b",
+        .fyr = .{
+            .url = "git+https://github.com/zewenn/fyr?ref=stable#dde32c27382e02eabde3a145f1975bffa6ffefb2",
+            .hash = "fyr-0.2.0-VePM7yoQAgAuMp0raSdwpWGa2O_3WLRPj6gRFA3tJKmh",
         },
     },
     .paths = .{
