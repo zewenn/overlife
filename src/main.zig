@@ -1,48 +1,40 @@
 const std = @import("std");
+const fyr = @import("fyr");
 
-const os = @import("std").os;
-const fs = @import("std").fs;
+const window = fyr.window;
 
-const e = @import("./engine/engine.m.zig");
+const Movement = @import("behaviours/Movement.zig");
 
 pub fn main() !void {
-    var gpa = std.heap.GeneralPurposeAllocator(.{}){};
-    defer _ = gpa.deinit();
+    fyr.project({
+        window.title("overlife - v2.0.0");
 
-    const allocator = gpa.allocator();
+        window.resizing.enable();
+        window.size.set(fyr.Vec2(1280, 720));
+        window.fps.setTarget(256);
+    })({
+        fyr.scene("default")({
+            fyr.entities(.{
+                try fyr.entity("Player", .{
+                    fyr.Transform{},
+                    fyr.Renderer.init(.{
+                        .img = "sprites/entity/player/left_0.png",
+                    }),
+                    fyr.CameraTarget{
+                        .max_distance = 400,
+                        .min_distance = 50,
+                        .follow_speed = 360,
+                    },
+                    Movement{},
+                }),
 
-    // e.setTraceLogLevel(.err);
-
-    e.window.init(
-        "OverLife - v0.0.0-a1",
-        e.Vec2(
-            1440,
-            720,
-        ),
-    );
-    defer e.window.deinit();
-
-    e.window.makeResizable();
-
-    try e.init(allocator);
-    defer e.deinit();
-
-    if (e.builtin.mode != .Debug) {
-        e.zlib.debug.debugDisplay = false;
-    }
-
-    e.setTargetFPS(256);
-    e.setExitKey(.kp_7);
-
-    while (!e.windowShouldClose()) {
-        if (e.isKeyPressed(.f11)) {
-            e.window.toggleBorderless();
-        }
-        if (e.builtin.mode == .Debug) {
-            if (e.isKeyPressed(.f3)) {
-                e.zlib.debug.debugDisplay = !e.zlib.debug.debugDisplay;
-            }
-        }
-        e.update() catch {};
-    }
+                try fyr.entity("Enemy1", .{
+                    fyr.Transform{},
+                    fyr.Renderer.init(.{
+                        .img = "sprites/entity/angler/left.png",
+                    }),
+                }),
+            });
+        });
+    });
 }
