@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="./readme/readme_logo.png" title="logo" alt="logo">
+  <img src="./readme/readme_logo.png" title="logo" alt="logo" width="400px" alt="Overlife">
 </p>
-
-<h1 align="center">OverLife</h1>
-OverLife game source code!
+Overlife game source code!
 
 
