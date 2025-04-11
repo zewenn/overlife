@@ -2,8 +2,8 @@ const std = @import("std");
 const fyr = @import("fyr");
 
 const window = fyr.window;
-
 const Movement = @import("behaviours/Movement.zig");
+const Player = @import("prefabs/Player.zig").Player;
 
 pub fn main() !void {
     fyr.project({
@@ -15,18 +15,7 @@ pub fn main() !void {
     })({
         fyr.scene("default")({
             fyr.entities(.{
-                try fyr.entity("Player", .{
-                    fyr.Transform{},
-                    fyr.Renderer.init(.{
-                        .img = "sprites/entity/player/left_0.png",
-                    }),
-                    fyr.CameraTarget{
-                        .max_distance = 400,
-                        .min_distance = 50,
-                        .follow_speed = 360,
-                    },
-                    Movement{},
-                }),
+                try Player(),
 
                 try fyr.entity("Enemy1", .{
                     fyr.Transform{},
