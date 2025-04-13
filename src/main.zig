@@ -18,9 +18,16 @@ pub fn main() !void {
                 try Player(),
 
                 try fyr.entity("Enemy1", .{
-                    fyr.Transform{},
+                    fyr.Transform{
+                        .position = fyr.Vec3(72, 0, 0)
+                    },
                     fyr.Renderer.init(.{
-                        .img = "sprites/entity/angler/left.png",
+                        .img = "sprites/entity/enemies/brute/left_0.png",
+                    }),
+                    fyr.RectCollider.init(.{
+                        .rect = fyr.Rect(0, 0, 64, 64),
+                        .dynamic = true,
+                        .weight = 1.1
                     }),
                 }),
             });

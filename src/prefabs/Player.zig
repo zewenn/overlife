@@ -5,6 +5,8 @@ const Movement = @import("../behaviours/Movement.zig");
 
 pub fn Player() !*fyr.Entity {
     return try fyr.entity("Player", .{
+        Movement{},
+
         fyr.Transform{},
         fyr.Renderer.init(.{
             .img = "sprites/entity/player/left_0.png",
@@ -14,7 +16,10 @@ pub fn Player() !*fyr.Entity {
             .min_distance = 50,
             .follow_speed = 360,
         },
-
-        Movement{},
+        fyr.RectCollider.init(.{
+            .rect = fyr.Rect(0, 0, 64, 64),
+            .dynamic = true,
+            .weight = 1
+        }),
     });
 }
