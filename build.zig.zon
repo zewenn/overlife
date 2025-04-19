@@ -6,8 +6,8 @@
 
     .dependencies = .{
         .fyr = .{
-            .url = "git+https://github.com/zewenn/fyr?ref=stable#3784adddd48024f16e335e1e2404ea182cb52006",
-            .hash = "fyr-0.2.1-VePM790RAgB4akZbRUecYgowLNrWSYgli2CbbBPou7ho",
+            .url = "git+https://github.com/zewenn/fyr?ref=stable#b5c4769e3163164d919aeafe3f743660f879f627",
+            .hash = "fyr-0.3.0-VePM7x0aAgBajKSD2hvmyad4Uxa14NoZm59vfrtUpmAe",
         },
     },
     .paths = .{
